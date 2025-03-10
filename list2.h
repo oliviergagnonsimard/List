@@ -135,7 +135,24 @@ void list<TYPE>::reverse() {
 
 template <typename TYPE>
 void list<TYPE>::sort(iterator DEB, iterator FIN) {
-	/*... a completer ...*/
+	cellule* cell = DEB.POINTEUR;
+	cellule* cell2;
+
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE - (i + 1); j++) {
+			cell2 = cell->SUIV;
+			if (cell->CONTENU > cell2->CONTENU)
+				std::swap(cell, cell2);
+		}
+		cell = cell->SUIV;
+	}
 }
+
+// SIZE=7, i = 0, SIZE-(0+1) = 6
+// 4 5 6 13 4 9 0
+// i = 1, SIZE-(1+1) = 5
+// 0 4 5 6 13 4 9
+// 0 4 4 5 6 13 9
+// 0 4 4 5 6 9 13
 
 #endif
