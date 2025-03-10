@@ -123,7 +123,14 @@ void list<TYPE>::splice(iterator i, list& L) {
 
 template <typename TYPE>
 void list<TYPE>::reverse() {
-	/*... a completer ...*/
+	//DEBUT->PREC->SUIV = DEBUT->PREC->SUIV->PREC;
+	//DEBUT->PREC = nullptr;
+
+	cellule* cell;
+	for (int i = 0; i < SIZE; i++) {
+		cell = DEBUT->SUIV; // on avance dans la liste 
+		std::swap(cell->PREC, cell->SUIV); // on échange les pointeurs
+	}
 }
 
 template <typename TYPE>

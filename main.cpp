@@ -15,6 +15,7 @@ int main() {
 	shish.push_front(3);
 	shish.push_front(4);
 
+	cout << "----- INSERT ET ERASE ------" << endl;
 	shish.afficher();
 
 	shish.insert(shish.begin(), 19);
@@ -27,6 +28,8 @@ int main() {
 	shish.afficher();
 
 	/* Test du operator= */
+	cout << "----- OPERATOR= ------" << endl;
+
 	shish2.push_front(5);
 	shish2.push_front(6);
 	shish2.push_front(7);
@@ -38,7 +41,15 @@ int main() {
 	shish.afficher();
 
 	/* Test du resize */
-	shish.resize(3);
+	//cout << "----- RESIZE ------" << endl;
+
+	//shish.resize(3);
+	//shish.afficher();
+
+	/* Test du reverse */
+	cout << "----- REVERSE ------" << endl;
+
+	shish.reverse();
 	shish.afficher();
 
 
