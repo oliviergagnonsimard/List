@@ -47,10 +47,16 @@ int main() {
 	//shish.afficher();
 
 	/* Test du reverse */
-	cout << "----- SORT ------" << endl;
+	cout << "----- REVERSE ------" << endl;
 
 	shish.reverse();
 	shish.afficher();
+
+	/* Test du reverse */
+	cout << "----- SORT ------" << endl;
+
+	//shish.sort();
+	//shish.afficher();
 
 
 	cout << endl;
