@@ -27,7 +27,9 @@ typename list<TYPE>::cellule* list<TYPE>::insert(cellule* C, const TYPE& X) {
 template <typename TYPE>
 typename list<TYPE>::cellule* list<TYPE>::erase(cellule* C) {
 	C->PREC->SUIV = C->SUIV;
-	C->SUIV->PREC = C->PREC;
+
+	if (C != DEBUT->PREC)
+		C->SUIV->PREC = C->PREC;
 
 	SIZE--;
 
@@ -38,24 +40,34 @@ typename list<TYPE>::cellule* list<TYPE>::erase(cellule* C) {
 // 3 pts
 template <typename TYPE>
 class list<TYPE>::reverse_iterator {
-	/*... a effacer et completer ...*/
-	int ATTRIBUT;
+	friend class list<TYPE>;
+private:
+	cellule* POINTEUR;
+public:
+	reverse_iterator(cellule* C = nullptr) :POINTEUR(C) {}
+	TYPE& operator*()const { return POINTEUR->CONTENU; } //*i
+	TYPE* operator->()const { return &(POINTEUR->CONTENU); } //i->
+	iterator& operator++() { POINTEUR = POINTEUR->PREC; return *this; } //++i
+	iterator operator++(int) { iterator it(*this); POINTEUR = POINTEUR->PREC; return it; } //i++
+	iterator& operator--() { POINTEUR = POINTEUR->SUIV; return *this; } //--i
+	iterator operator--(int) { iterator ret(*this); POINTEUR = POINTEUR->SUIV; return ret; } //i--  
+	bool operator==(const iterator& IT)const {
+		return POINTEUR == IT.POINTEUR;
+	}
+	bool operator!=(const iterator& IT)const {
+		return POINTEUR != IT.POINTEUR;
+	}
 };
 
 template <typename TYPE>
 typename list<TYPE>::reverse_iterator list<TYPE>::rbegin() {
-	cellule* c = DEBUT->SUIV;
-
-	for (int i = 0; i < SIZE; i++)
-		c = c->SUIV;
-
-	return reverse_iterator(c);
+	// DEBUT -> QUEUE -> DERNIER ÉLÉMENT
+	return reverse_iterator(DEBUT->PREC->PREC);
 }
 
 template <typename TYPE>
 typename list<TYPE>::reverse_iterator list<TYPE>::rend() {
-	/*... a effacer et completer ...*/
-	return reverse_iterator();
+	return reverse_iterator(DEBUT->SUIV);
 }
 
 template <typename TYPE>
@@ -94,14 +106,14 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 
 		for (int i = 0; i < surplus; i++)
 			push_back(X);
+
+		return;
 	}
 
-	else {
-		surplus = SIZE - N;
+	surplus = SIZE - N;
 
-		for (int i = 0; i < surplus; i++)
-			pop_back();
-	}
+	for (int i = 0; i < surplus; i++)
+		pop_back();
 }
 
 template <typename TYPE>
