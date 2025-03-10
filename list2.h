@@ -68,7 +68,18 @@ typename list<TYPE>::reverse_iterator list<TYPE>::erase(reverse_iterator i) {
 
 template <typename TYPE>
 void list<TYPE>::operator=(list<TYPE>& L) {
-	/*... a completer ...*/
+	// Si les listes ne sont pas de la même longueur, on ne fait rien.
+	if (SIZE != L.SIZE)
+		throw std::exception("Listes pas de la même longueur!");
+
+	cellule* c = DEBUT->SUIV;
+	cellule* l = L.DEBUT->SUIV;
+
+	for (int i = 0; i < SIZE; i++) {
+		c->CONTENU = l->CONTENU;
+		c = c->SUIV;
+		l = l->SUIV;
+	}
 }
 
 template <typename TYPE>
