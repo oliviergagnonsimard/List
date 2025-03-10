@@ -7,3 +7,4 @@
 *.filters
 *.user
 *.DS_Store
+/x64/Release

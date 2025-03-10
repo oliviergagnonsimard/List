@@ -4,13 +4,17 @@
 
 using namespace std;
 
-void main() {
+int main() {
 
 	list<int> shish;
 
-
 	shish.push_front(5);
-	int taille = shish.size();
+	shish.push_front(6);
+	shish.push_front(7);
+	shish.push_front(8);
 
 	shish.afficher();
+
+
+	return 0;
 }
