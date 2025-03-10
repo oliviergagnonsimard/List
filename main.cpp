@@ -13,8 +13,14 @@ int main() {
 	shish.push_front(7);
 	shish.push_front(8);
 
+
 	shish.afficher();
 
+	shish.pop_front();
+
+	shish.afficher();
+
+	cout << "Bhay" << endl;
 
 	return 0;
 }

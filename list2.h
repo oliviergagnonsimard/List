@@ -26,7 +26,11 @@ typename list<TYPE>::cellule* list<TYPE>::insert(cellule* C, const TYPE& X) {
 
 template <typename TYPE>
 typename list<TYPE>::cellule* list<TYPE>::erase(cellule* C) {
-	/*... a effacer et completer ...*/
+	C->PREC->SUIV = C->SUIV;
+	C->SUIV->PREC = C->PREC;
+
+	SIZE--;
+
 	return C;
 }
 
