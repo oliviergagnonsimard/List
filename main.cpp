@@ -37,6 +37,10 @@ int main() {
 	shish = shish2;
 	shish.afficher();
 
+	/* Test du resize */
+	shish.resize(3);
+	shish.afficher();
+
 
 	cout << endl;
 

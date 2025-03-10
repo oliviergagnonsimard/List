@@ -44,8 +44,12 @@ class list<TYPE>::reverse_iterator {
 
 template <typename TYPE>
 typename list<TYPE>::reverse_iterator list<TYPE>::rbegin() {
-	/*... a effacer et completer ...*/
-	return reverse_iterator();
+	cellule* c = DEBUT->SUIV;
+
+	for (int i = 0; i < SIZE; i++)
+		c = c->SUIV;
+
+	return reverse_iterator(c);
 }
 
 template <typename TYPE>
@@ -84,7 +88,20 @@ void list<TYPE>::operator=(list<TYPE>& L) {
 
 template <typename TYPE>
 void list<TYPE>::resize(size_t N, const TYPE& X) {
-	/*... a completer ...*/
+	int surplus;
+	if (N > SIZE) {
+		surplus = N - SIZE;
+
+		for (int i = 0; i < surplus; i++)
+			push_back(X);
+	}
+
+	else {
+		surplus = SIZE - N;
+
+		for (int i = 0; i < surplus; i++)
+			pop_back();
+	}
 }
 
 template <typename TYPE>
