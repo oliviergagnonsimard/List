@@ -15,7 +15,7 @@
 Fonction: insert
 Param: cellule*, const TYPE&
 Retour: cellule*
-Description: Nous insérons dans la fonction une cellule et un index et nous déplaçons 
+Description: Nous insérons dans la fonction une cellule et un index et nous déplaçons
 toutes les cellules d'une case vers la droite et plaçons la nouvelle cellule à la valeur X dans
 l'endroit vide libéré et déplaçons les pointeurs précédants et suivants à la cellule ajoutée.
 */
@@ -84,7 +84,7 @@ public:
 
 /*
 Fonction: rbegin
-Param: 
+Param:
 Retour: reverse_iterator
 Description: Nous retournons un reverse_iterator avec comme cellule de début la fin de la liste
 en faisant précédant de DÉBUT ce qui nous donne la QUEUE
@@ -154,7 +154,7 @@ typename list<TYPE>::reverse_iterator list<TYPE>::erase(reverse_iterator i) {
 	return reverse_iterator();
 }
 
-/* 
+/*
 Fonction: operator=
 Param: list<TYPE>&
 Retour:
@@ -207,7 +207,31 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 
 template <typename TYPE>
 void list<TYPE>::splice(iterator i, list& L) {
+	iterator it(DEBUT->SUIV);
+	iterator new_it(L.DEBUT->SUIV);
+	cellule* cell = i.POINTEUR;
 
+	for (int j = 0; j < SIZE; j++) {
+		if (it.POINTEUR == cell) {
+			cellule* c = it.POINTEUR;
+			cellule* celle = new_it.POINTEUR;
+			c->PREC->SUIV = celle;
+			celle->PREC = c;
+
+			for (int k = 0; k < L.SIZE; k++) {
+				celle = new_it.POINTEUR;
+
+				celle.PREC
+
+
+				new_it++;
+			}
+			break;
+		}
+		it++;
+	}
+
+	L.SIZE = 0;
 }
 
 
