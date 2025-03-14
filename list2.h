@@ -70,14 +70,14 @@ public:
 	reverse_iterator(cellule* C = nullptr) :POINTEUR(C) {}
 	TYPE& operator*()const { return POINTEUR->CONTENU; } //*i
 	TYPE* operator->()const { return &(POINTEUR->CONTENU); } //i->
-	iterator& operator++() { POINTEUR = POINTEUR->PREC; return *this; } //++i
-	iterator operator++(int) { iterator it(*this); POINTEUR = POINTEUR->PREC; return it; } //i++
-	iterator& operator--() { POINTEUR = POINTEUR->SUIV; return *this; } //--i
-	iterator operator--(int) { iterator ret(*this); POINTEUR = POINTEUR->SUIV; return ret; } //i--  
-	bool operator==(const iterator& IT)const {
+	reverse_iterator& operator++() { POINTEUR = POINTEUR->PREC; return *this; } //++i
+	reverse_iterator operator++(int) { reverse_iterator it(*this); POINTEUR = POINTEUR->PREC; return it; } //i++
+	reverse_iterator& operator--() { POINTEUR = POINTEUR->SUIV; return *this; } //--i
+	reverse_iterator operator--(int) { reverse_iterator ret(*this); POINTEUR = POINTEUR->SUIV; return ret; } //i--  
+	bool operator==(const reverse_iterator& IT)const {
 		return POINTEUR == IT.POINTEUR;
 	}
-	bool operator!=(const iterator& IT)const {
+	bool operator!=(const reverse_iterator& IT)const {
 		return POINTEUR != IT.POINTEUR;
 	}
 };
@@ -108,19 +108,53 @@ typename list<TYPE>::reverse_iterator list<TYPE>::rend() {
 	return reverse_iterator(DEBUT->SUIV);
 }
 
+/*
+Fonction: insert
+Param: reverse_iterator, const TYPE&
+Retour: reverse_iterator
+Description: Nous insérons dans la liste avec le reverse_iterator à partir de la fin vers le début.
+*/
 template <typename TYPE>
 typename list<TYPE>::reverse_iterator list<TYPE>::insert(reverse_iterator i, const TYPE& x) {
-	/*... a effacer et completer ...*/
+	cellule* cell = i.POINTEUR; // cellule où insérer
+	cell->CONTENU = x;
+
+	cellule* cellActuelle = DEBUT->PREC->PREC; // Dernier élément
+
+	for (int j = 0; j < SIZE; j++) {
+		if (cell == cellActuelle) {
+			cell->SUIV = cellActuelle;
+			cell->PREC = cellActuelle.PREC;
+			break;
+		}
+		cellActuelle = cellActuelle->PREC; // On avance dans la liste
+	}
+
 	return reverse_iterator();
 }
 
 template <typename TYPE>
 typename list<TYPE>::reverse_iterator list<TYPE>::erase(reverse_iterator i) {
-	/*... a effacer et completer ...*/
+	cellule* cell = i.POINTEUR;
+	cellule* c;
+	reverse_iterator rv_it(DEBUT->PREC->PREC);
+
+	for (int j = 0; j < SIZE; j++) {
+		if (rv_it.POINTEUR == cell) {
+			c = rv_it.POINTEUR;
+			c->PREC->SUIV = c->SUIV;
+			c->SUIV->PREC = c->PREC;
+			delete c;
+			break;
+		}
+		rv_it++;
+	}
+
+
 	return reverse_iterator();
 }
 
-/*
+/* 
 Fonction: operator=
 Param: list<TYPE>&
 Retour:
@@ -173,7 +207,7 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 
 template <typename TYPE>
 void list<TYPE>::splice(iterator i, list& L) {
-	/*... a completer ...*/
+
 }
 
 
@@ -186,12 +220,14 @@ de la fin en allant au début et interchangeons les éléments à l'endroit (i) 
 */
 template <typename TYPE>
 void list<TYPE>::reverse() {
-	cellule* cell;
+	cellule* cell = DEBUT->PREC->PREC; // Dernier élément
 
-	reverse_iterator i(cell);
+	reverse_iterator c(cell);
+
 	for (int i = 0; i < SIZE; i++) {
-		cell = DEBUT->SUIV; // on avance dans la liste 
-		std::swap(cell->PREC, cell->SUIV); // on échange les pointeurs
+
+
+		c++; // lol
 	}
 }
 
