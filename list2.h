@@ -215,14 +215,14 @@ void list<TYPE>::splice(iterator i, list& L) {
 	cell->PREC->SUIV = newCell->SUIV;
 
 	// L'endroit où à été inséré la nouvelle liste a comme précédent: la fin de la la liste L
-	cell->PREC = new_cellFin;
-	i++
+	cell->PREC = new_cellFin; 
+	i++;
 	cell->SUIV = i.POINTEUR;
 
 	// Le prochain élément du dernier élément de la liste L devient cell (où a été inséré la liste à la base)
 	new_cellFin->SUIV = cell;
 
-	L.SIZE = 0; // on change le size de L à 0 sans supprimer ses valeurs
+	L.SIZE = 0; // on change le size de L à 0 sans supprimer ses valeu   rs
 }
 
 
