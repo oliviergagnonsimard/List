@@ -222,7 +222,7 @@ void list<TYPE>::splice(iterator i, list& L) {
 	// Le prochain élément du dernier élément de la liste L devient cell (où a été inséré la liste à la base)
 	new_cellFin->SUIV = cell;
 
-	L.SIZE = 0; // on change le size de L à 0 sans supprimer ses valeu   rs
+	L.SIZE = 0; // on change le size de L à 0 sans supprimer ses valeurs
 }
 
 
@@ -231,18 +231,43 @@ Fonction: reverse
 Param:
 Retour:
 Description: Nous devons inverser la liste, donc tous les éléments sont inversés. C'est-à-dire, que nous commençons
-de la fin en allant au début et interchangeons les éléments à l'endroit (i) et à l'endroit (SIZE-i)
+de la fin en allant au début et interchangeons les éléments à l'endroit (i) et à l'endroit (SIZE-i).
 */
 template <typename TYPE>
 void list<TYPE>::reverse() {
-	cellule* cell = DEBUT->PREC->PREC; // Dernier élément
+	// Si la liste n'a pas de tête ou est vide, alors on ne fait rien
+	if (DEBUT == nullptr || DEBUT->SUIV == nullptr)
+		return;
 
-	reverse_iterator c(cell);
+	cellule* tete = DEBUT;
+	cellule* queue = DEBUT->PREC;
 
-	for (int i = 0; i < SIZE; i++) {
+	cellule* cellNormal;
+	cellule* cellReverse;
 
+	iterator normal(tete->SUIV);
+	reverse_iterator reverse(queue->PREC);
 
-		c++; // lol
+	/* 
+	Lorsque la taille est paire ex: [1, 2, 3, 4, 5, 6]; on doit faire 3 swaps donc (SIZE / 2),
+	mais lorsque c'est impair, ex: [1, 2, 3, 4, 5]; on doit faire 2 swaps seulement (SIZE/2) - 1
+
+	FINALEMENT PAS BESOIN GRÂCE À LA DIVISION ENTIÈRE DONC 5 / 2 = 2
+	*/
+	//if (SIZE % 2 == 1) // si la taille de la liste est impair
+		//taille--; // on réduit le nombre de swaps à faire de 1
+	int taille = SIZE / 2;
+
+	for (int i = 0; i < taille; i++) {
+		cellNormal = normal.POINTEUR; // cellule actuelle sens normal
+		cellReverse = reverse.POINTEUR; // cellule actuelle sens inverse
+
+		std::cout << cellNormal->CONTENU << ", " << cellReverse->CONTENU << std::endl;
+
+		std::swap(cellNormal->CONTENU, cellReverse->CONTENU);
+
+		normal++; // on fait un SUIV sur l'itérateur dans le sens normal
+		reverse++; // on fait un SUIV sur l'itérateur dans le sens inverse (donc un PREC)
 	}
 }
 

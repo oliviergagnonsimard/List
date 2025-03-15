@@ -49,8 +49,20 @@ int main() {
 	/* Test du reverse */
 	cout << "----- REVERSE ------" << endl;
 
-	shish.reverse();
-	shish.afficher();
+	list<int> shish3; // liste impaire
+
+	shish3.push_front(5);
+	shish3.push_front(6);
+	shish3.push_front(7);
+	shish3.push_front(8);
+	shish3.push_front(9);
+
+	cout << "AVANT: " << endl;
+	shish3.afficher();
+	cout << "===" << endl;
+	shish3.reverse();
+	cout << "APRES: " << endl;
+	shish3.afficher();
 
 	/* Test du reverse */
 	cout << "----- SORT ------" << endl;
