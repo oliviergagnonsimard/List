@@ -249,13 +249,11 @@ void list<TYPE>::reverse() {
 	reverse_iterator reverse(queue->PREC);
 
 	/* 
-	Lorsque la taille est paire ex: [1, 2, 3, 4, 5, 6]; on doit faire 3 swaps donc (SIZE / 2),
-	mais lorsque c'est impair, ex: [1, 2, 3, 4, 5]; on doit faire 2 swaps seulement (SIZE/2) - 1
+	Lorsque la taille est paire ex: [1, 2, 3, 4, 5, 6]; on doit faire 3 swaps donc (SIZE / 2 = 3, donc 3 swaps) 
+	mais lorsque c'est impair, ex: [1, 2, 3, 4, 5]; on doit faire 2 swaps seulement (SIZE / 2 = 2, donc 2 swaps)
 
-	FINALEMENT PAS BESOIN GRÂCE À LA DIVISION ENTIÈRE DONC 5 / 2 = 2
+	*** DIVISION ENTIÈRE DONC 5 / 2 = 2 ***
 	*/
-	//if (SIZE % 2 == 1) // si la taille de la liste est impair
-		//taille--; // on réduit le nombre de swaps à faire de 1
 	int taille = SIZE / 2;
 
 	for (int i = 0; i < taille; i++) {
@@ -290,7 +288,7 @@ void list<TYPE>::sort(iterator DEB, iterator FIN) {
 		for (int j = 0; j < SIZE - (i + 1); j++) {
 			cell2 = cell->SUIV;
 			if (cell->CONTENU > cell2->CONTENU)
-				std::swap(cell, cell2);
+				std::swap(cell->CONTENU, cell2->CONTENU);
 		}
 		cell = cell->SUIV;
 	}

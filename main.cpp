@@ -64,11 +64,11 @@ int main() {
 	cout << "APRES: " << endl;
 	shish3.afficher();
 
-	/* Test du reverse */
+	/* Test du sort */
 	cout << "----- SORT ------" << endl;
 
-	//shish.sort();
-	//shish.afficher();
+	shish.sort(shish.begin(), shish.end());
+	shish.afficher();
 
 
 	cout << endl;
