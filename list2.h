@@ -44,9 +44,8 @@ qui sont précédents et suivants à la cellule dans la list.
 template <typename TYPE>
 typename list<TYPE>::cellule* list<TYPE>::erase(cellule* C) {
 	C->PREC->SUIV = C->SUIV;
+	C->SUIV->PREC = C->PREC;
 
-	if (C != DEBUT->PREC)
-		C->SUIV->PREC = C->PREC;
 
 	SIZE--;
 
@@ -130,28 +129,33 @@ typename list<TYPE>::reverse_iterator list<TYPE>::insert(reverse_iterator i, con
 		cellActuelle = cellActuelle->PREC; // On avance dans la liste
 	}
 
-	return reverse_iterator();
+	return i;
 }
 
 template <typename TYPE>
 typename list<TYPE>::reverse_iterator list<TYPE>::erase(reverse_iterator i) {
-	cellule* cell = i.POINTEUR;
+	// Si la liste est vide on fait rien
+	if (SIZE == 0) {
+		return i;
+	}
+
+	cellule* cell = i.POINTEUR; // cell à effacer
 	cellule* c;
-	reverse_iterator rv_it(DEBUT->PREC->PREC);
+	reverse_iterator rv_it(DEBUT->PREC); // on commence au dernier élément
 
 	for (int j = 0; j < SIZE; j++) {
 		if (rv_it.POINTEUR == cell) {
 			c = rv_it.POINTEUR;
 			c->PREC->SUIV = c->SUIV;
 			c->SUIV->PREC = c->PREC;
-			delete c;
 			break;
 		}
 		rv_it++;
 	}
 
+	SIZE--;
 
-	return reverse_iterator();
+	return i;
 }
 
 /*
@@ -163,11 +167,6 @@ par l'élément à la même position (index) de la liste passée en paramètre.
 */
 template <typename TYPE>
 void list<TYPE>::operator=(list<TYPE>& L) {
-	// Si les listes ne sont pas de la même longueur, on ne fait rien.
-	if (SIZE != L.SIZE)
-		throw std::exception("Listes pas de la même longueur!");
-
-
 	cellule* c = DEBUT->SUIV;
 	cellule* l = L.DEBUT->SUIV;
 
@@ -195,9 +194,7 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 
 		for (int i = 0; i < surplus; i++) {
 			push_back(X);
-			SIZE++;
 		}
-
 		return;
 	}
 
@@ -205,8 +202,9 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 
 	for (int i = 0; i < surplus; i++) {
 		pop_back();
-		SIZE--;
 	}
+
+	SIZE = N;
 }
 
 template <typename TYPE>
@@ -291,7 +289,7 @@ void list<TYPE>::sort(iterator DEB, iterator FIN) {
 	if (DEB.POINTEUR == FIN.POINTEUR)
 		return;
 
-	while(currentCell != lastCell) {
+	while (currentCell != lastCell) {
 		currentCell = DEB.POINTEUR;
 		comparedCell = currentCell->SUIV;
 		iterator comparateur(comparedCell);

@@ -19,13 +19,15 @@ int main() {
 	shish.afficher();
 
 	shish.insert(shish.begin(), 19);
-	shish.insert(shish.end(), 21);
+	shish.insert(shish.begin(), 21);
 
-	// Cas limite! (Effacer à la fin et probablement ajouter à la fin)
-	//shish.erase(shish.end());
+	shish.afficher();
+
+	shish.erase(shish.begin());
 
 
 	shish.afficher();
+
 
 	/* Test du operator= */
 	cout << "----- OPERATOR= ------" << endl;
