@@ -41,10 +41,10 @@ int main() {
 	shish.afficher();
 
 	/* Test du resize */
-	//cout << "----- RESIZE ------" << endl;
-
-	//shish.resize(3);
-	//shish.afficher();
+	cout << "----- RESIZE ------" << endl;
+	shish.afficher();
+	shish.resize(3);
+	shish.afficher();
 
 	/* Test du reverse */
 	cout << "----- REVERSE ------" << endl;

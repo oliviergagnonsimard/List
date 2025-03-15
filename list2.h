@@ -193,16 +193,20 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 	if (N > SIZE) {
 		surplus = N - SIZE;
 
-		for (int i = 0; i < surplus; i++)
+		for (int i = 0; i < surplus; i++) {
 			push_back(X);
+			SIZE++;
+		}
 
 		return;
 	}
 
 	surplus = SIZE - N;
 
-	for (int i = 0; i < surplus; i++)
+	for (int i = 0; i < surplus; i++) {
 		pop_back();
+		SIZE--;
+	}
 }
 
 template <typename TYPE>
