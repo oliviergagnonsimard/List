@@ -51,11 +51,13 @@ int main() {
 
 	list<int> shish3; // liste impaire
 
-	shish3.push_front(5);
-	shish3.push_front(6);
-	shish3.push_front(7);
-	shish3.push_front(8);
+	shish3.push_front(63);
+	shish3.push_front(15);
 	shish3.push_front(9);
+	shish3.push_front(1002);
+	shish3.push_front(98);
+	shish3.push_back(609);
+	shish3.push_back(11);
 
 	cout << "AVANT: " << endl;
 	shish3.afficher();
@@ -66,9 +68,14 @@ int main() {
 
 	/* Test du sort */
 	cout << "----- SORT ------" << endl;
+	shish3.reverse();
 
-	shish.sort(shish.begin(), shish.end());
-	shish.afficher();
+	cout << "AVANT: " << endl;
+	shish3.afficher();
+	cout << "===" << endl;
+	shish3.sort(shish3.begin(), shish3.end());
+	cout << "APRES: " << endl;
+	shish3.afficher();
 
 
 	cout << endl;

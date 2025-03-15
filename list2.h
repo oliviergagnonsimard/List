@@ -215,7 +215,7 @@ void list<TYPE>::splice(iterator i, list& L) {
 	cell->PREC->SUIV = newCell->SUIV;
 
 	// L'endroit où à été inséré la nouvelle liste a comme précédent: la fin de la la liste L
-	cell->PREC = new_cellFin; 
+	cell->PREC = new_cellFin;
 	i++;
 	cell->SUIV = i.POINTEUR;
 
@@ -248,8 +248,8 @@ void list<TYPE>::reverse() {
 	iterator normal(tete->SUIV);
 	reverse_iterator reverse(queue->PREC);
 
-	/* 
-	Lorsque la taille est paire ex: [1, 2, 3, 4, 5, 6]; on doit faire 3 swaps donc (SIZE / 2 = 3, donc 3 swaps) 
+	/*
+	Lorsque la taille est paire ex: [1, 2, 3, 4, 5, 6]; on doit faire 3 swaps donc (SIZE / 2 = 3, donc 3 swaps)
 	mais lorsque c'est impair, ex: [1, 2, 3, 4, 5]; on doit faire 2 swaps seulement (SIZE / 2 = 2, donc 2 swaps)
 
 	*** DIVISION ENTIÈRE DONC 5 / 2 = 2 ***
@@ -260,7 +260,6 @@ void list<TYPE>::reverse() {
 		cellNormal = normal.POINTEUR; // cellule actuelle sens normal
 		cellReverse = reverse.POINTEUR; // cellule actuelle sens inverse
 
-		std::cout << cellNormal->CONTENU << ", " << cellReverse->CONTENU << std::endl;
 
 		std::swap(cellNormal->CONTENU, cellReverse->CONTENU);
 
@@ -271,27 +270,42 @@ void list<TYPE>::reverse() {
 
 /*
 Fonction: sort
-Param:
+Param: iterator, iterator
 Retour:
 Description: Nous devons classer en ordre croissant les éléments de la liste, donc pour chaque valeur actuelle
-si une valeur après celle-ci dans le reste de la liste est plus petite, nous les swappons. Pour faire cela nous
-faisons deux boucles une qui itère pour chaque valeur dans liste et une autre, imbriquée, qui itère
-dans le reste de la liste (après la valeur actuelle, SIZE-(i+1) ) et nous comparons l'élément actuel à chaque élément
-suivant dans la liste jusqu'à la fin. Si la valeur après la valeur actuelle est plus petite, nous les interchangeons.
+si une valeur après celle-ci dans le reste de la liste est plus petite, nous les swappons.
+Une spécificité de la fonction est que dans nous pouvons sort seulement une sous-section de la liste en insérant les cellules appropriées.
 */
 template <typename TYPE>
 void list<TYPE>::sort(iterator DEB, iterator FIN) {
-	cellule* cell = DEB.POINTEUR;
-	cellule* cell2;
+	cellule* currentCell = DEB.POINTEUR; // Cellule où on commence à sort (au début)
+	cellule* comparedCell; // Cellule qu'on compare à cell
+	cellule* lastCell = FIN.POINTEUR->PREC; // Dernière cellule qu'on sort
 
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE - (i + 1); j++) {
-			cell2 = cell->SUIV;
-			if (cell->CONTENU > cell2->CONTENU)
-				std::swap(cell->CONTENU, cell2->CONTENU);
+
+	// Si on pointe vers la même cellule, on fait rien
+	if (DEB.POINTEUR == FIN.POINTEUR)
+		return;
+
+	while(currentCell != lastCell) {
+		currentCell = DEB.POINTEUR;
+		comparedCell = currentCell->SUIV;
+		iterator comparateur(comparedCell);
+
+		while (comparedCell->SUIV != nullptr) {
+
+
+			if (comparedCell->CONTENU < currentCell->CONTENU) {
+				std::swap(comparedCell->CONTENU, currentCell->CONTENU);
+			}
+
+			comparateur++;
+			comparedCell = comparateur.POINTEUR;
 		}
-		cell = cell->SUIV;
+
+		DEB++;
 	}
+
 }
 
 // SIZE=7, i = 0, SIZE-(0+1) = 6
