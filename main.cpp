@@ -79,6 +79,15 @@ int main() {
 	cout << "APRES: " << endl;
 	shish3.afficher();
 
+	cout << "----- SPLICE ------" << endl;
+
+	cout << "AVANT: " << endl;
+	shish3.afficher();
+	cout << "===" << endl;
+	shish3.splice(shish2.begin(), shish2);
+	cout << "APRES: " << endl;
+	shish3.afficher();
+
 
 	cout << endl;
 

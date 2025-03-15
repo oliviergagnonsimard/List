@@ -209,7 +209,7 @@ void list<TYPE>::resize(size_t N, const TYPE& X) {
 
 template <typename TYPE>
 void list<TYPE>::splice(iterator i, list& L) {
-	cellule* newCell(L.DEBUT); // Le début de la liste L
+	cellule* newCell(L.DEBUT->SUIV); // Le début de la liste L
 	cellule* cell = i.POINTEUR; // Cellule ou on insère la liste L
 	cellule* new_cellFin = newCell->PREC->PREC; // Dernier élément de la liste L
 
@@ -224,6 +224,7 @@ void list<TYPE>::splice(iterator i, list& L) {
 	// Le prochain élément du dernier élément de la liste L devient cell (où a été inséré la liste à la base)
 	new_cellFin->SUIV = cell;
 
+	SIZE += L.SIZE;
 	L.SIZE = 0; // on change le size de L à 0 sans supprimer ses valeurs
 }
 
